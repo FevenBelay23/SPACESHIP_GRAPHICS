@@ -1,10 +1,17 @@
 import glfw
 from OpenGL.GL import *
-import ShaderLoader
 import numpy
 import pyrr
 from PIL import Image
 from ObjLoader import *
+import OpenGL.GL.shaders
+
+def load_shader(shader_file):
+    shader_source = ""
+    with open(shader_file) as f:
+        shader_source = f.read()
+    f.close()
+    return str.encode(shader_source)
 
 def window_resize(window, width, height):
     glViewport(0, 0, width, height)
@@ -33,8 +40,13 @@ def main():
 
     texture_offset = len(obj.vertex_index)*12
 
+    vert_shader = load_shader("shaders/vert.vs")
+    frag_shader = load_shader("shaders/frag.fs")
 
-    shader = ShaderLoader.compile_shader("shaders/vert.vs", "shaders/frag.fs")
+    shader = OpenGL.GL.shaders.compileProgram(OpenGL.GL.shaders.compileShader(vert_shader, GL_VERTEX_SHADER),
+                                              OpenGL.GL.shaders.compileShader(frag_shader, GL_FRAGMENT_SHADER))
+
+
 
     VBO = glGenBuffers(1)
     glBindBuffer(GL_ARRAY_BUFFER, VBO)
