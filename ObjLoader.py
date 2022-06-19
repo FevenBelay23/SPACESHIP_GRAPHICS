@@ -14,7 +14,8 @@ class ObjLoader:
 
     def load_model(self, file):
         for line in open(file, 'r'):
-            if line.startswith('#'): continue
+            if line.startswith('#'):
+                continue
             values = line.split()
             if not values: continue
 
