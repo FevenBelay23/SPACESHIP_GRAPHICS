@@ -19,7 +19,7 @@ def main():
 
     glfw.window_hint(glfw.RESIZABLE, GL_FALSE)
 
-    window = glfw.create_window(w_width, w_height, "My OpenGL window", None, None)
+    window = glfw.create_window(w_width, w_height, "Rocket spaceship", None, None)
 
     if not window:
         glfw.terminate()
